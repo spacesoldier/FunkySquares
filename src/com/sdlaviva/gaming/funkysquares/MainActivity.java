@@ -18,7 +18,7 @@ public class MainActivity extends AndroidApplication
 		config.useWakelock = true;
 		config.useGL20 = true;
 		//initializeForView(new ShiftGame(), config);
-		initialize(new ShiftGame(), config);
+		initialize(new FunkySquaresGame(), config);
     }
 }
 

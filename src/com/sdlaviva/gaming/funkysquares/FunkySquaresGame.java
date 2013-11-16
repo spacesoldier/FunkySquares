@@ -4,7 +4,7 @@ import com.sdlaviva.gaming.funkysquares.screens.*;
 
 //import android.content.Intent;
 
-public class ShiftGame extends Game
+public class FunkySquaresGame extends Game
 {
 	public GameScreen mainGameScreen;
 	@Override
