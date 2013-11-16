@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="com.badlogic.gdx.graphics.g2d.TextureRegion"/>
+<fullyQualifiedTypeName name="com.sdlaviva.gaming.funkysquares.controls.ControlButton"/>
+<fullyQualifiedTypeName name="com.badlogic.gdx.math.Vector2"/>
+<fullyQualifiedTypeName name="com.sdlaviva.gaming.funkysquares.controls.GameOverCase"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="com.sdlaviva.gaming.funkysquares.controls.RestartButton"/>
+</qualifiedTypeNameHistroy>
