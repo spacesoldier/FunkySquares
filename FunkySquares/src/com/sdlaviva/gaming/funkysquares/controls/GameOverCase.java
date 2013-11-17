@@ -4,43 +4,36 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import java.util.Map;
-import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.Group;
 
-import com.sdlaviva.gaming.funkysquares.controls.ControlButton.BtnState;
 import com.sdlaviva.gaming.funkysquares.model.*;
 
-public class GameOverCase extends Actor {
+public class GameOverCase extends Group {
 
 	public static final float H_SIZE = 2f;
 	public static final float W_SIZE = 8f;
 	
-	public BtnState currentState;
-	
 	public GameField mainField;
-	
-	public void setCurrentState(BtnState newState){
-		this.currentState = newState;
-	}
-	
 
 	Map<String, TextureRegion> textureAtlas;
 	
 	TextureRegion textureGame;
 	TextureRegion textureOver;
+	
+	public RestartButton restart;
 
 	
 	public GameOverCase(Vector2 position, float ppuX, float ppuY, Map<String, TextureRegion> textureAtlas, GameField mainField /*, Label debugText*/){
 	
 		this.textureAtlas = textureAtlas;
 		this.mainField = mainField;
-		currentState = BtnState.RELEASED;
 		
 		this.setX(position.x*ppuX);
 		this.setY(position.y*ppuY);
 		this.setWidth(W_SIZE*ppuX);
 		this.setHeight(H_SIZE*ppuY);
+		
+		visible = false;
 		
 		textureGame = new TextureRegion();  
 		textureGame = textureAtlas.get("game");
@@ -48,9 +41,12 @@ public class GameOverCase extends Actor {
 		textureOver = new TextureRegion();  
 		textureOver = textureAtlas.get("over");
 		
-		double k = textureGame.getRegionWidth()/textureOver.getRegionWidth();
-		textureGame.setRegionWidth((int)(ppuX*W_SIZE/(k+1)));
-		textureOver.setRegionWidth((int)(k*textureGame.getRegionWidth()));
+		//double k = textureGame.getRegionWidth()/textureOver.getRegionWidth();
+		//textureGame.setRegionWidth((int)(ppuX*W_SIZE/(k+1)));
+		//textureOver.setRegionWidth((int)(k*textureGame.getRegionWidth()));
+		//restart = new RestartButton(new Vector2(mainField.CAMERA_WIDTH-3,1),mainField);
+		//this.mainField.addActor(new RestartButton(new Vector2(mainField.CAMERA_WIDTH-3,1),mainField));
+		
 		
 		/*
 		addListener(new InputListener (){
@@ -68,22 +64,38 @@ public class GameOverCase extends Actor {
 		*/
 	}
 	
+	private boolean visible;
+	
+	public void show(){
+		visible = true;
+	}
+	
+	public void hide(){
+		visible = false;
+	}
+	
 	@Override
 	public void draw(SpriteBatch batch, float parentBlending){
-
-		batch.draw(textureGame,
-				   getX(),
-				   getY(),
-				   textureGame.getRegionWidth(),
-				   getHeight()
-				   );
-		batch.draw(textureOver,
-				   getX()+textureGame.getRegionWidth(),
-				   getY(),
-				   textureOver.getRegionWidth(),
-				   getHeight()
-				   );
-				   
+		if (visible){
+			this.drawChildren(batch, parentBlending);
+			batch.draw(textureGame,
+					   getX(),
+					   getY(),
+					   getWidth()/2,
+					   //textureGame.getRegionWidth(),
+					   getHeight()
+					   );
+			batch.draw(textureOver,
+					   //getX()+textureGame.getRegionWidth(),
+					   getX()+getWidth()/2,
+					   getY(),
+					   getWidth()/2,
+					   //textureOver.getRegionWidth(),
+					   getHeight()
+					   );
+			
+		}
+			   
 	}
 	
 	

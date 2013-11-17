@@ -1,11 +1,9 @@
 package com.sdlaviva.gaming.funkysquares.controls;
 
 import com.badlogic.gdx.scenes.scene2d.Group;
-//import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-//import com.badlogic.gdx.scenes.scene2d.ui.*;
 import java.util.Map;
 import com.sdlaviva.gaming.funkysquares.model.*;
 
@@ -17,7 +15,6 @@ public class ControlGroup extends Group
 	private float centerX;
 	private float centerY;
 
-//	private Label debugText;
 
 	private GameField mainField;
 	

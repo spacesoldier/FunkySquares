@@ -59,10 +59,23 @@ public class LogicContainer extends Group
 		sortedNods = new DomainHolder(FIELD_SIZE);
 		nodsToDelete = new ArrayList<CubeNod>();
 		
+		initField(textureAtlas, centerX, centerY);
+		
+	}
+	
+	public void reset(){
 		for (int i=0; i<FIELD_SIZE+2; i++)
 			for (int j=0; j<FIELD_SIZE+2; j++) {
+				if (!logicField[i][j].isEmpty && logicField[i][j].nod != null) logicField[i][j].nod.remove();
 				logicField[i][j] = new NodRec();
 			}
+		fillEmptyField();
+		initField(textureAtlas, centerX, centerY);
+	}
+
+	private void initField(Map<String, TextureRegion> textureAtlas,
+			float centerX, float centerY) {
+		fillEmptyField();
 
 	
 		// Firstly fill the logic field		
@@ -111,8 +124,15 @@ public class LogicContainer extends Group
 		
 		//hidden rows and columns
 		addNewNods();
-		
 	}
+
+	private void fillEmptyField() {
+		for (int i=0; i<FIELD_SIZE+2; i++)
+			for (int j=0; j<FIELD_SIZE+2; j++) {
+				logicField[i][j] = new NodRec();
+			}
+	}
+	
 	
 	@Override
 	public void draw(SpriteBatch batch, float parentAlfa){

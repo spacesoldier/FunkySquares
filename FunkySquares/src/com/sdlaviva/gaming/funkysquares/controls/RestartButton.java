@@ -28,30 +28,44 @@ public class RestartButton extends Actor {
 		this.currentState = newState;
 	}
 	
-
+	private void restart(){
+		mainField.reset();
+	}
 	Map<String, TextureRegion> textureAtlas;
 
+	private boolean visible;
 	
-	public RestartButton(Vector2 position, float ppuX, float ppuY, Map<String, TextureRegion> textureAtlas, GameField mainField /*, Label debugText*/){
+	public void show(){
+		visible = true;
+	}
 	
-		this.textureAtlas = textureAtlas;
+	public void hide(){
+		visible = false;
+	}
+	
+	public RestartButton(Vector2 position, GameField mainField /*, Label debugText*/){
+	
+		this.textureAtlas = mainField.textureAtlas;
 		this.mainField = mainField;
 		currentState = BtnState.RELEASED;
 		
-		this.setX(position.x*ppuX);
-		this.setY(position.y*ppuY);
-		this.setWidth(H_SIZE*ppuX);
-		this.setHeight(W_SIZE*ppuY);
+		this.setX(position.x*mainField.ppuX);
+		this.setY(position.y*mainField.ppuY);
+		this.setWidth(H_SIZE*mainField.ppuX);
+		this.setHeight(W_SIZE*mainField.ppuY);
+		
+		visible = false;
 		
 		addListener(new InputListener (){
 			
 			public boolean touchDown(InputEvent event,float x, float y, int pointer, int button){
 				currentState = BtnState.PRESSED;
-									
+				restart();					
 				return true;
 			}
 			
 			public void touchUp(InputEvent event,int x, int y, int pointer, int button){
+					//restart();
 					currentState = BtnState.RELEASED;
 				}		
 			});
@@ -59,20 +73,23 @@ public class RestartButton extends Actor {
 	
 	@Override
 	public void draw(SpriteBatch batch, float parentBlending){
-		if (this!=mainField.selectedActor) currentState = BtnState.RELEASED;
-		
-		TextureRegion textureRegion = new TextureRegion();
-		if (currentState == BtnState.RELEASED)  
-			textureRegion = textureAtlas.get("restartUp");
-		if (currentState == BtnState.PRESSED)  
-			textureRegion = textureAtlas.get("restartDown");
+		if (visible){
+			if (this!=mainField.selectedActor) currentState = BtnState.RELEASED;
+			
+			TextureRegion textureRegion = new TextureRegion();
+			if (currentState == BtnState.RELEASED)  
+				textureRegion = textureAtlas.get("restartUp");
+			if (currentState == BtnState.PRESSED)  
+				textureRegion = textureAtlas.get("restartDown");
 
-		batch.draw(textureRegion,
-				   getX(),
-				   getY(),
-				   getWidth(),
-				   getHeight()
-				   );
+			batch.draw(textureRegion,
+					   getX(),
+					   getY(),
+					   getWidth(),
+					   getHeight()
+					   );
+	
+		}
 	}
 	
 	

@@ -26,14 +26,14 @@ public class ScoreCounter extends Group
 		this.value = value;
 		for (int i=0; i<4; i++){
 			scoreArray.add(new ScoreNumber(mainField,textureAtlas,
-							mainField.getWidth()- ScoreNumber.W_SIZE*(i+4.2f)*ppuX,
-							mainField.getHeight()-ScoreNumber.H_SIZE*1.2f*ppuY,
+							mainField.getWidth()- ScoreNumber.W_SIZE*(i+5f)*ppuX,
+							mainField.getHeight()-ScoreNumber.H_SIZE*ppuY,
 							0 ));
 			this.addActor(scoreArray.get(i));				
 		}
 		this.addActor(new ScoreLabel(mainField,textureAtlas,
-									 mainField.getWidth() - ScoreLabel.W_SIZE*3.1f*ppuX,
-									 mainField.getHeight() - ScoreLabel.H_SIZE*1.2f*ppuY
+									 mainField.getWidth() - ScoreLabel.W_SIZE*3.5f*ppuX,
+									 mainField.getHeight() - ScoreLabel.H_SIZE*ppuY
 									));
 		setValue(this.value);							
 	}

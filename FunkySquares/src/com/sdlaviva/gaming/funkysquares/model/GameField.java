@@ -50,7 +50,7 @@ public class GameField extends Stage
 		CAMERA_HEIGHT = cAMERA_HEIGHT;
 	}
 
-	
+	RestartButton restart;
 	
 	public ScoreCounter Score;
 	
@@ -68,6 +68,16 @@ public class GameField extends Stage
 				((LogicContainer)actor).update(delta);	
 		}
 			
+	}
+	
+	public void reset(){
+		if (allNods != null) allNods.reset();
+		Score.setValue(0);
+
+		///TODO REMOVE THESE FUCKIN GAMEOVER WIDGETS
+		restart.hide();
+		gameOverWidget.hide();
+		
 	}
 	
 	public GameField(int x, int y, boolean b, SpriteBatch spriteBatch, Map<String, TextureRegion> fieldTextureMap){
@@ -100,21 +110,21 @@ public class GameField extends Stage
 		this.addActor(Score);
 		
 		this.addActor(new ControlGroup(this,textureAtlas, GameField.CAMERA_WIDTH/2, 3));
-		RestartButton restart = new RestartButton(new Vector2(CAMERA_WIDTH-3,1),ppuX,ppuY,textureAtlas,this);
+		restart = new RestartButton(new Vector2(2,1),this);
 		this.addActor(restart);
-		restart.setVisible(false);
+		//restart.setVisible(false);
 	//	debugLabel.setText(debugLabel.getText()+"\n Touch hits:");
 		
 		//gameOverText = null;
-		gameOverWidget = null;
-//		gameOverWidget = new GameOverCase(new Vector2(CAMERA_WIDTH/2-4, CAMERA_HEIGHT/2-1), ppuX, ppuY, textureAtlas, this);
-//		this.addActor(gameOverWidget);
-//		gameOverWidget.setVisible(true);
+		//gameOverWidget = null;
+		gameOverWidget = new GameOverCase(new Vector2(CAMERA_WIDTH/2-4, CAMERA_HEIGHT/2+2), ppuX, ppuY, textureAtlas, this);
+		this.addActor(gameOverWidget);
+		gameOverWidget.setVisible(false);
 		
 }
 	
 	public void gameOver(){
-		if (gameOverWidget == null){
+		if (gameOverWidget != null){
 			
 			/*
 			Label.LabelStyle fontType = new Label.LabelStyle(new BitmapFont(), new Color(1f,0.5f,0.01f,1f));
@@ -126,8 +136,14 @@ public class GameField extends Stage
 			gameOverText.setPosition(ppuX*(CAMERA_WIDTH/2-ppuX*75f/getWidth()),ppuY*(CAMERA_HEIGHT/2));
 			this.addActor(gameOverText);
 			*/
-			gameOverWidget = new GameOverCase(new Vector2(CAMERA_WIDTH/2-3, CAMERA_HEIGHT/2-1), ppuX, ppuY, textureAtlas, this);
-			this.addActor(gameOverWidget);
+			//gameOverWidget = new GameOverCase(new Vector2(CAMERA_WIDTH/2-3, CAMERA_HEIGHT-5), ppuX, ppuY, textureAtlas, this);
+			//this.addActor(gameOverWidget);
+			//this.addActor(restart);
+			restart.show();
+			gameOverWidget.show();
+			//this.addActor(new RestartButton(new Vector2(CAMERA_WIDTH-3,1),this));
+			
+			//gameOverWidget.setVisible(true);
 			/*ArrayList <Actor> actors = new ArrayList<Actor>((Collection<? extends Actor>) this.getActors());
 			RestartButton resetBtn = null;
 			for (Actor actor : actors) {
