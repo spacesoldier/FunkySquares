@@ -9,6 +9,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.sdlaviva.gaming.funkysquares.model.*;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Gdx;
@@ -22,6 +24,7 @@ public class GameScreen implements Screen, InputProcessor
 	public GameField mainField;
 
 	Texture mainTexture;
+	TextureAtlas mainAtlas;
 	public Map<String, TextureRegion> mainTexturesMap = new HashMap<String, TextureRegion>();
 	
 	public int width;
@@ -86,17 +89,25 @@ public class GameScreen implements Screen, InputProcessor
 	}
 	
 	private void loadTextures(){
+		
+		//TextureAtlas atlas;
+		mainAtlas = new TextureAtlas(Gdx.files.internal("spritepacks/FunkySquaresSprites.pack"));
+		//AtlasRegion region = atlas.findRegion("imagename");
+		//Sprite sprite = atlas.createSprite("otherimagename");
+		//NinePatch patch = atlas.createPatch("patchimagename");
 
 		mainTexture = new Texture(Gdx.files.internal("images/funkysquares_atlas.png"));
 		
 		/* color bricks loading */
 		
+		mainTexturesMap.put("blueNod",mainAtlas.findRegion("blue"));
+		mainTexturesMap.put("greenNod",mainAtlas.findRegion("green"));
+		mainTexturesMap.put("greyNod",mainAtlas.findRegion("red"));
+		mainTexturesMap.put("pinkNod",mainAtlas.findRegion("pink"));
+		mainTexturesMap.put("yellowNod",mainAtlas.findRegion("orange"));
+		
 		TextureRegion nodsTexs[][] = TextureRegion.split(mainTexture, mainTexture.getWidth()/8, mainTexture.getHeight()/8);
-		mainTexturesMap.put("blueNod",nodsTexs[2][0]);
-		mainTexturesMap.put("greenNod",nodsTexs[2][1]);
-		mainTexturesMap.put("greyNod",nodsTexs[2][2]);
-		mainTexturesMap.put("pinkNod",nodsTexs[2][3]);
-		mainTexturesMap.put("yellowNod",nodsTexs[2][4]);
+
 		/* loading texture for restart button */
 		mainTexturesMap.put("restartUp", nodsTexs[2][5]);
 		mainTexturesMap.put("restartDown", nodsTexs[2][6]);
@@ -113,9 +124,14 @@ public class GameScreen implements Screen, InputProcessor
 		mainTexturesMap.put("edge", fieldTex[0][2]);
 		
 		/* loading button textures */
-		TextureRegion shiftBtnTex[][] = TextureRegion.split(mainTexture, mainTexture.getWidth()/8, mainTexture.getHeight()/4);
-		mainTexturesMap.put("shift_unpressed", shiftBtnTex[0][6]);
-		mainTexturesMap.put("shift_pressed", shiftBtnTex[0][7]);
+		mainTexturesMap.put("left_up",mainAtlas.findRegion("control_left_unpressed"));
+		mainTexturesMap.put("left_down",mainAtlas.findRegion("control_left_pressed"));
+		mainTexturesMap.put("right_up",mainAtlas.findRegion("control_right_unpressed"));
+		mainTexturesMap.put("right_down",mainAtlas.findRegion("control_right_pressed"));
+		mainTexturesMap.put("up_up",mainAtlas.findRegion("control_up_unpressed"));
+		mainTexturesMap.put("up_down",mainAtlas.findRegion("control_up_pressed"));
+		mainTexturesMap.put("down_up",mainAtlas.findRegion("control_down_unpressed"));
+		mainTexturesMap.put("down_down",mainAtlas.findRegion("control_down_pressed"));
 		
 		/* loading score font textures */
 		TextureRegion scoreTex = new TextureRegion(mainTexture, 0, 448, 192, 64);

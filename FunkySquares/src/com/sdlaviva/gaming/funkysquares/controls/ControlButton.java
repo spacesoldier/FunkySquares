@@ -24,7 +24,7 @@ public class ControlButton extends Actor
 //	private Label debugText;
 	
 	public static final float H_SIZE = 2f;
-	public static final float W_SIZE = 1f;
+	public static final float W_SIZE = 2f;
 	
 	public Direction direction;
 	public BtnState currentState;
@@ -37,6 +37,8 @@ public class ControlButton extends Actor
 	
 
 	Map<String, TextureRegion> textureAtlas;
+	TextureRegion stateUp;
+	TextureRegion stateDown;
 	
 	public ControlButton(Vector2 position, float ppuX, float ppuY, Map<String, TextureRegion> textureAtlas, Direction direction, GameField mainField /*, Label debugText*/) {
 
@@ -47,34 +49,37 @@ public class ControlButton extends Actor
 		
 	//	this.debugText = debugText;
 
+
+		this.setWidth(W_SIZE*ppuX);
+		this.setHeight(H_SIZE*ppuY);				
 		
 		switch (direction){
 			case UP:
-					this.setX(position.x*ppuX);
-					this.setY(position.y*ppuY);
-					this.setWidth(H_SIZE*ppuX);
-					this.setHeight(W_SIZE*ppuY);				
+					stateUp = textureAtlas.get("up_up");
+					stateDown = textureAtlas.get("up_down");
+					this.setX((position.x - W_SIZE/2)*ppuX);
+					this.setY((position.y + H_SIZE*3/4)*ppuY);
 					//this.debugText.setText(debugText.getText()+"\n UP: X="+ this.getX()+" Y="+this.getY()+" H="+ this.getHeight()+" W="+ this.getWidth());
 				break;
 			case DOWN:
-					this.setX(position.x*ppuX);
-					this.setY(position.y*ppuY-W_SIZE*ppuY);
-					this.setWidth(H_SIZE*ppuX);
-					this.setHeight(W_SIZE*ppuY);
+					stateUp = textureAtlas.get("down_up");
+					stateDown = textureAtlas.get("down_down");
+					this.setX((position.x - W_SIZE/2)*ppuX);
+					this.setY((position.y - H_SIZE*3/4)*ppuY);
 					//this.debugText.setText(debugText.getText()+"\n DOWN: X="+ this.getX()+" Y="+this.getY()+" H="+ this.getHeight()+" W="+ this.getWidth());
 				break;
 			case LEFT:
-					this.setX(position.x*ppuX - W_SIZE*ppuX);
-					this.setY(position.y*ppuY);
-					this.setWidth(W_SIZE*ppuX);
-					this.setHeight(H_SIZE*ppuY);				
+					stateUp = textureAtlas.get("left_up");
+					stateDown = textureAtlas.get("left_down");
+					this.setX((position.x - W_SIZE*5/4)*ppuX);
+					this.setY((position.y)*ppuY);
 					//this.debugText.setText(debugText.getText()+"\n LEFT: X="+ this.getX()+" Y="+this.getY()+" H="+ this.getHeight()+" W="+ this.getWidth());
 				break;
 			case RIGHT:
-					this.setX(position.x*ppuX);
-					this.setY(position.y*ppuY);
-					this.setWidth(W_SIZE*ppuX);
-					this.setHeight(H_SIZE*ppuY);
+					stateUp = textureAtlas.get("right_up");
+					stateDown = textureAtlas.get("right_down");
+					this.setX((position.x + W_SIZE/4)*ppuX);
+					this.setY((position.y)*ppuY);
 					//this.debugText.setText(debugText.getText()+"\n RIGHT: X="+ this.getX()+" Y="+this.getY()+" H="+ this.getHeight()+" W="+ this.getWidth());
 				break;
 		}
@@ -116,38 +121,29 @@ public class ControlButton extends Actor
 	public void draw(SpriteBatch batch, float parentBlending){
 		if (this!=mainField.selectedActor) currentState = BtnState.RELEASED;
 		
-		TextureRegion textureRegion = new TextureRegion();
+		TextureRegion textureRegion = null;
 		if (currentState == BtnState.RELEASED)  
-			textureRegion = textureAtlas.get("shift_unpressed");
+			textureRegion = stateUp;
 		if (currentState == BtnState.PRESSED)  
-			textureRegion = textureAtlas.get("shift_pressed");
+			textureRegion = stateDown;
 
 		switch (direction)
 		{
 			case UP:
 				batch.draw(textureRegion,
-				 getX(),
-				 getY()+getHeight(),
-				 0, 
-				 0,
-				 getHeight(),
-				 getWidth(),
-				 1,1,
-				 -90);
-
+						   getX(),
+						   getY(),
+						   getWidth(),
+						   getHeight()
+						   );
 				break;
 			case DOWN:
-			
 				batch.draw(textureRegion,
-						   getX()+getWidth(),
+						   getX(),
 						   getY(),
-						   0, 
-						   0,
-						   getHeight(),
 						   getWidth(),
-						   1,1,
-						   90);
-						   
+						   getHeight()
+						   );					   
 				break;
 			case LEFT:
 				batch.draw(textureRegion,
@@ -159,14 +155,11 @@ public class ControlButton extends Actor
 				break;
 			case RIGHT:
 				batch.draw(textureRegion,
-						   getX()+ getWidth(),
-						   getY()+ getHeight(),
-						   0, 
-						   0,
+						   getX(),
+						   getY(),
 						   getWidth(),
-						   getHeight(),
-						   1,1,
-						   180);
+						   getHeight()
+						   );
 				break;
 		}
 	}

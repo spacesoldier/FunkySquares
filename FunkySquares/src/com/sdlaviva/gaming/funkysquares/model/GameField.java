@@ -31,8 +31,26 @@ public class GameField extends Stage
 	
 	private Vector2 coords = new Vector2(0,0);
 	
-	public static float CAMERA_WIDTH = 16f;
-	public static float CAMERA_HEIGHT = 10f;
+	public static float CAMERA_WIDTH = 10f;
+	public static float CAMERA_HEIGHT = 16f;
+	
+	public static float getCAMERA_WIDTH() {
+		return CAMERA_WIDTH;
+	}
+
+	public static void setCAMERA_WIDTH(float cAMERA_WIDTH) {
+		CAMERA_WIDTH = cAMERA_WIDTH;
+	}
+
+	public static float getCAMERA_HEIGHT() {
+		return CAMERA_HEIGHT;
+	}
+
+	public static void setCAMERA_HEIGHT(float cAMERA_HEIGHT) {
+		CAMERA_HEIGHT = cAMERA_HEIGHT;
+	}
+
+	
 	
 	public ScoreCounter Score;
 	
@@ -68,9 +86,9 @@ public class GameField extends Stage
 
 		//debugLabel = new Label("Button coordinates:",new Label.LabelStyle(new BitmapFont(), new Color(1,1,1,1)));
 		
-		allNods = new LogicContainer(this,textureAtlas);
+		allNods = new LogicContainer(this,textureAtlas, GameField.CAMERA_WIDTH/2, GameField.CAMERA_HEIGHT-5);
 		this.addActor(allNods);
-		this.addActor(new FieldFrame(new Vector2(CAMERA_WIDTH/2,CAMERA_HEIGHT/2),ppuX,ppuY,textureAtlas));
+		this.addActor(new FieldFrame(new Vector2(CAMERA_WIDTH/2,GameField.CAMERA_HEIGHT-5),ppuX,ppuY,textureAtlas));
 		
 
 		//this.addActor(debugLabel);
@@ -81,7 +99,7 @@ public class GameField extends Stage
 		
 		this.addActor(Score);
 		
-		this.addActor(new ControlGroup(this,textureAtlas));
+		this.addActor(new ControlGroup(this,textureAtlas, GameField.CAMERA_WIDTH/2, 3));
 		RestartButton restart = new RestartButton(new Vector2(CAMERA_WIDTH-3,1),ppuX,ppuY,textureAtlas,this);
 		this.addActor(restart);
 		restart.setVisible(false);

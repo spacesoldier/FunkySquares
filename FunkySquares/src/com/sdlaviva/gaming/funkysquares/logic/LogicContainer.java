@@ -39,14 +39,14 @@ public class LogicContainer extends Group
 	private boolean fieldClear;
 	private boolean gameEnded;
 	
-	public LogicContainer(GameField field, Map<String, TextureRegion> textureAtlas){
+	public LogicContainer(GameField field, Map<String, TextureRegion> textureAtlas, float centerX, float centerY){
 
 		this.mainField = field;
 		this.textureAtlas = textureAtlas;
 		this.ppuX = mainField.ppuX;
 		this.ppuY = mainField.ppuY;
-		centerX = GameField.CAMERA_WIDTH/2;
-		centerY = GameField.CAMERA_HEIGHT/2;
+		this.centerX = centerX; // GameField.CAMERA_WIDTH/2;
+		this.centerY = centerY; // GameField.CAMERA_HEIGHT/2;
 		
 		setX((centerX-FIELD_SIZE/2)*ppuX);
 		setY((centerY-FIELD_SIZE/2)*ppuY);

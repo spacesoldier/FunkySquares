@@ -1,0 +1,115 @@
+
+FunkySquaresSprites.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+control_down_pressed
+  rotate: false
+  xy: 1, 665
+  size: 330, 330
+  orig: 330, 330
+  offset: 0, 0
+  index: -1
+control_down_unpressed
+  rotate: false
+  xy: 1, 333
+  size: 330, 330
+  orig: 330, 330
+  offset: 0, 0
+  index: -1
+control_left_pressed
+  rotate: false
+  xy: 333, 665
+  size: 330, 330
+  orig: 330, 330
+  offset: 0, 0
+  index: -1
+control_left_unpressed
+  rotate: false
+  xy: 1, 1
+  size: 330, 330
+  orig: 330, 330
+  offset: 0, 0
+  index: -1
+control_right_pressed
+  rotate: false
+  xy: 333, 333
+  size: 330, 330
+  orig: 330, 330
+  offset: 0, 0
+  index: -1
+control_right_unpressed
+  rotate: false
+  xy: 665, 665
+  size: 330, 330
+  orig: 330, 330
+  offset: 0, 0
+  index: -1
+control_up_pressed
+  rotate: false
+  xy: 333, 6
+  size: 330, 325
+  orig: 330, 325
+  offset: 0, 0
+  index: -1
+control_up_unpressed
+  rotate: false
+  xy: 665, 338
+  size: 330, 325
+  orig: 330, 325
+  offset: 0, 0
+  index: -1
+blue
+  rotate: false
+  xy: 665, 201
+  size: 136, 135
+  orig: 136, 135
+  offset: 0, 0
+  index: -1
+green
+  rotate: false
+  xy: 665, 64
+  size: 136, 135
+  orig: 136, 135
+  offset: 0, 0
+  index: -1
+orange
+  rotate: false
+  xy: 803, 201
+  size: 136, 135
+  orig: 136, 135
+  offset: 0, 0
+  index: -1
+pink
+  rotate: false
+  xy: 803, 64
+  size: 136, 135
+  orig: 136, 135
+  offset: 0, 0
+  index: -1
+
+FunkySquaresSprites2.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+red
+  rotate: false
+  xy: 1, 1
+  size: 136, 135
+  orig: 136, 135
+  offset: 0, 0
+  index: -1
+btn9patch_pressed
+  rotate: false
+  xy: 139, 7
+  size: 132, 129
+  orig: 132, 129
+  offset: 0, 0
+  index: -1
+btn9patch_unpressed
+  rotate: false
+  xy: 273, 7
+  size: 132, 129
+  orig: 132, 129
+  offset: 0, 0
+  index: -1

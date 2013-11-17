@@ -23,21 +23,21 @@ public class ControlGroup extends Group
 	
 	Map<String, TextureRegion> textureAtlas;
 	
-	public ControlGroup(GameField field, Map<String, TextureRegion> textureAtlas){
+	public ControlGroup(GameField field, Map<String, TextureRegion> textureAtlas, float centerX, float centerY){
 		
 		this.mainField = field;
 		this.textureAtlas = textureAtlas;
 		this.ppuX = mainField.ppuX;
 		this.ppuY = mainField.ppuY;
-		this.centerX = GameField.CAMERA_WIDTH/2;
-		this.centerY = GameField.CAMERA_HEIGHT/2;
+		this.centerX = centerX; // GameField.CAMERA_WIDTH/2;
+		this.centerY = centerY; // GameField.CAMERA_HEIGHT/2;
 		
 //		this.debugText = mainField.debugLabel;
 		
-		this.addActor(new ControlButton(new Vector2(centerX-ControlButton.H_SIZE/2,centerY+4),ppuX,ppuY,textureAtlas,ControlButton.Direction.UP, mainField /*, debugText*/));
-		this.addActor(new ControlButton(new Vector2(centerX-4,centerY-ControlButton.W_SIZE),ppuX,ppuY,textureAtlas,ControlButton.Direction.LEFT, mainField /*, debugText*/));
-		this.addActor(new ControlButton(new Vector2(centerX-ControlButton.W_SIZE,centerY-4),ppuX,ppuY,textureAtlas,ControlButton.Direction.DOWN, mainField /*, debugText*/));
-		this.addActor(new ControlButton(new Vector2(centerX+4,centerY-ControlButton.W_SIZE),ppuX,ppuY,textureAtlas,ControlButton.Direction.RIGHT, mainField /*, debugText*/));
+		this.addActor(new ControlButton(new Vector2(this.centerX,this.centerY),ppuX,ppuY,textureAtlas,ControlButton.Direction.UP, mainField /*, debugText*/));
+		this.addActor(new ControlButton(new Vector2(this.centerX,this.centerY),ppuX,ppuY,textureAtlas,ControlButton.Direction.LEFT, mainField /*, debugText*/));
+		this.addActor(new ControlButton(new Vector2(this.centerX,this.centerY),ppuX,ppuY,textureAtlas,ControlButton.Direction.DOWN, mainField /*, debugText*/));
+		this.addActor(new ControlButton(new Vector2(this.centerX,this.centerY),ppuX,ppuY,textureAtlas,ControlButton.Direction.RIGHT, mainField /*, debugText*/));
 		
 		
 	}
