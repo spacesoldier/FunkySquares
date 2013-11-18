@@ -115,8 +115,10 @@ public class GameScreen implements Screen, InputProcessor
 		
 		/* loading background */
 		
-		TextureRegion backTex[][] = TextureRegion.split(mainTexture, mainTexture.getWidth()/4, mainTexture.getHeight()/4);		
-		mainTexturesMap.put("background",backTex[0][0]);
+		//TextureRegion backTex[][] = TextureRegion.split(mainTexture, mainTexture.getWidth()/4, mainTexture.getHeight()/4);
+		TextureRegion backTex = new TextureRegion(mainTexture, 0, 0, 255, 253);
+		//mainTexturesMap.put("background",backTex[0][0]);
+		mainTexturesMap.put("background",backTex);
 		
 		/* loading field edges */
 		TextureRegion fieldTex[][] = TextureRegion.split(mainTexture, mainTexture.getWidth()/4, mainTexture.getHeight()/4);

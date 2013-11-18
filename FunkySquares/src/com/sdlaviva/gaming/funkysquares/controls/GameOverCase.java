@@ -20,18 +20,16 @@ public class GameOverCase extends Group {
 	TextureRegion textureGame;
 	TextureRegion textureOver;
 	
-	public RestartButton restart;
 
+	public GameOverCase(Vector2 position, GameField mainField /*, Label debugText*/){
 	
-	public GameOverCase(Vector2 position, float ppuX, float ppuY, Map<String, TextureRegion> textureAtlas, GameField mainField /*, Label debugText*/){
-	
-		this.textureAtlas = textureAtlas;
+		this.textureAtlas = mainField.textureAtlas;
 		this.mainField = mainField;
 		
-		this.setX(position.x*ppuX);
-		this.setY(position.y*ppuY);
-		this.setWidth(W_SIZE*ppuX);
-		this.setHeight(H_SIZE*ppuY);
+		this.setX(position.x*mainField.ppuX);
+		this.setY(position.y*mainField.ppuY);
+		this.setWidth(W_SIZE*mainField.ppuX);
+		this.setHeight(H_SIZE*mainField.ppuY);
 		
 		visible = false;
 		
@@ -76,25 +74,28 @@ public class GameOverCase extends Group {
 	
 	@Override
 	public void draw(SpriteBatch batch, float parentBlending){
-		if (visible){
-			this.drawChildren(batch, parentBlending);
-			batch.draw(textureGame,
-					   getX(),
-					   getY(),
-					   getWidth()/2,
-					   //textureGame.getRegionWidth(),
-					   getHeight()
-					   );
-			batch.draw(textureOver,
-					   //getX()+textureGame.getRegionWidth(),
-					   getX()+getWidth()/2,
-					   getY(),
-					   getWidth()/2,
-					   //textureOver.getRegionWidth(),
-					   getHeight()
-					   );
+//		float alpha = 0;
+//		if (visible) alpha = 1;
+//		else alpha = 0;
+//		batch.setColor(1.0f,1.0f,1.0f,alpha);
+		this.drawChildren(batch, parentBlending);
+		batch.draw(textureGame,
+				   getX(),
+				   getY(),
+				   getWidth()/2,
+				   //textureGame.getRegionWidth(),
+				   getHeight()
+				   );
+		batch.draw(textureOver,
+				   //getX()+textureGame.getRegionWidth(),
+				   getX()+getWidth()/2,
+				   getY(),
+				   getWidth()/2,
+				   //textureOver.getRegionWidth(),
+				   getHeight()
+				   );
 			
-		}
+		
 			   
 	}
 	

@@ -30,7 +30,7 @@ public class Background extends Actor
 		this.ppuY = ppuY;
 		this.textureAtlas = textureAtlas;
 		
-		addListener(new InputListener (){
+/*		addListener(new InputListener (){
 
 				public boolean touchDown(InputEvent event,float x, float y, int pointer, int button){
 	
@@ -45,7 +45,7 @@ public class Background extends Actor
 	
 
 				}		
-			});
+			});*/
 	}
 
 	public Rectangle getBounds() {

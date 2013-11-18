@@ -71,6 +71,8 @@ public class LogicContainer extends Group
 			}
 		fillEmptyField();
 		initField(textureAtlas, centerX, centerY);
+		fieldClear = true;
+		gameEnded = false;
 	}
 
 	private void initField(Map<String, TextureRegion> textureAtlas,

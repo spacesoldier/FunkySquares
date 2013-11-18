@@ -41,9 +41,13 @@ public class ScoreCounter extends Group
 	public void setValue(int newValue){
 		this.value = newValue;
 		String str = String.valueOf(value);
-		if (str.length()<=scoreArray.size())
+		for (int i=0; i<scoreArray.size(); i++)
+			scoreArray.get(i).setValue(0);
+
+		if (str.length()<=scoreArray.size()){
 			for (int i=str.length()-1; i>=0; i--)
 				scoreArray.get(i).setValue(Character.getNumericValue(str.charAt(str.length()-1-i)));
+		}
 		else for (int i=0; i<scoreArray.size(); i++)
 				scoreArray.get(i).setValue(9);		
 				

@@ -51,12 +51,13 @@ public class GameField extends Stage
 	}
 
 	RestartButton restart;
+	GameOverText stopmessage;
 	
 	public ScoreCounter Score;
 	
 	public LogicContainer allNods;
 	//public Label gameOverText;
-	GameOverCase gameOverWidget;
+	//GameOverCase gameOverWidget;
 	
 	/* updating color cubes positions */
 	public void update(float delta){
@@ -75,9 +76,18 @@ public class GameField extends Stage
 		Score.setValue(0);
 
 		///TODO REMOVE THESE FUCKIN GAMEOVER WIDGETS
-		restart.hide();
-		gameOverWidget.hide();
 		
+		removeGameOverCase();
+
+		//gameOverWidget.hide();
+		
+	}
+
+	private void removeGameOverCase() {
+		for (Actor act : this.getRoot().getChildren()){
+			if (act instanceof RestartButton) this.getRoot().removeActor(act);
+			if (act instanceof GameOverText) this.getRoot().removeActor(act);
+		}
 	}
 	
 	public GameField(int x, int y, boolean b, SpriteBatch spriteBatch, Map<String, TextureRegion> fieldTextureMap){
@@ -110,48 +120,19 @@ public class GameField extends Stage
 		this.addActor(Score);
 		
 		this.addActor(new ControlGroup(this,textureAtlas, GameField.CAMERA_WIDTH/2, 3));
-		restart = new RestartButton(new Vector2(2,1),this);
-		this.addActor(restart);
+
+		restart = new RestartButton(new Vector2(CAMERA_WIDTH/2-1,3),this);
+		stopmessage = new GameOverText(new Vector2(CAMERA_WIDTH/2-4, CAMERA_HEIGHT/2+2), this);
+
 		//restart.setVisible(false);
 	//	debugLabel.setText(debugLabel.getText()+"\n Touch hits:");
-		
-		//gameOverText = null;
-		//gameOverWidget = null;
-		gameOverWidget = new GameOverCase(new Vector2(CAMERA_WIDTH/2-4, CAMERA_HEIGHT/2+2), ppuX, ppuY, textureAtlas, this);
-		this.addActor(gameOverWidget);
-		gameOverWidget.setVisible(false);
+
 		
 }
 	
 	public void gameOver(){
-		if (gameOverWidget != null){
-			
-			/*
-			Label.LabelStyle fontType = new Label.LabelStyle(new BitmapFont(), new Color(1f,0.5f,0.01f,1f));
-			fontType.font.setScale(ppuX*150f/getWidth(),ppuY*80f/getHeight());
-			gameOverText = new Label("GAME OVER",fontType);
-			float w = CAMERA_WIDTH*gameOverText.getWidth()/getWidth();
-			float h = CAMERA_HEIGHT*gameOverText.getHeight()/getHeight();
-			gameOverText.setSize(w*ppuX, h*ppuY);
-			gameOverText.setPosition(ppuX*(CAMERA_WIDTH/2-ppuX*75f/getWidth()),ppuY*(CAMERA_HEIGHT/2));
-			this.addActor(gameOverText);
-			*/
-			//gameOverWidget = new GameOverCase(new Vector2(CAMERA_WIDTH/2-3, CAMERA_HEIGHT-5), ppuX, ppuY, textureAtlas, this);
-			//this.addActor(gameOverWidget);
-			//this.addActor(restart);
-			restart.show();
-			gameOverWidget.show();
-			//this.addActor(new RestartButton(new Vector2(CAMERA_WIDTH-3,1),this));
-			
-			//gameOverWidget.setVisible(true);
-			/*ArrayList <Actor> actors = new ArrayList<Actor>((Collection<? extends Actor>) this.getActors());
-			RestartButton resetBtn = null;
-			for (Actor actor : actors) {
-				if (actor instanceof RestartButton) resetBtn = (RestartButton)actor;
-			}
-			if (resetBtn != null) resetBtn.setVisible(true);*/
-			
-		}
+		this.addActor(stopmessage);
+		this.addActor(restart);
 	}
 	
 	@Override
@@ -177,6 +158,8 @@ public class GameField extends Stage
 					((RestartButton)actor).draw(fieldBatch,1);
 				else if(actor instanceof GameOverCase)
 					((GameOverCase)actor).draw(fieldBatch,1);
+				else if(actor instanceof GameOverText)
+					((GameOverText)actor).draw(fieldBatch,1);
 			}
 				
 		fieldBatch.end();
@@ -208,7 +191,10 @@ public class GameField extends Stage
 	private void resetSelected(){
 		if (selectedActor != null) {
 			if (selectedActor instanceof ControlButton) ((ControlButton)selectedActor).setCurrentState(ControlButton.BtnState.RELEASED);
-			if (selectedActor instanceof RestartButton) ((RestartButton)selectedActor).setCurrentState(ControlButton.BtnState.RELEASED);
+			if (selectedActor instanceof RestartButton) {
+				((RestartButton)selectedActor).setCurrentState(ControlButton.BtnState.RELEASED);
+				removeGameOverCase();
+			}
 			selectedActor = null;
 		} 
 	}
