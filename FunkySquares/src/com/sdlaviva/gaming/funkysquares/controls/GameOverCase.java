@@ -74,24 +74,17 @@ public class GameOverCase extends Group {
 	
 	@Override
 	public void draw(SpriteBatch batch, float parentBlending){
-//		float alpha = 0;
-//		if (visible) alpha = 1;
-//		else alpha = 0;
-//		batch.setColor(1.0f,1.0f,1.0f,alpha);
 		this.drawChildren(batch, parentBlending);
 		batch.draw(textureGame,
 				   getX(),
 				   getY(),
 				   getWidth()/2,
-				   //textureGame.getRegionWidth(),
 				   getHeight()
 				   );
 		batch.draw(textureOver,
-				   //getX()+textureGame.getRegionWidth(),
 				   getX()+getWidth()/2,
 				   getY(),
 				   getWidth()/2,
-				   //textureOver.getRegionWidth(),
 				   getHeight()
 				   );
 			

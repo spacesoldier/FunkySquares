@@ -106,19 +106,14 @@ public class GameScreen implements Screen, InputProcessor
 		mainTexturesMap.put("pinkNod",mainAtlas.findRegion("pink"));
 		mainTexturesMap.put("yellowNod",mainAtlas.findRegion("orange"));
 		
-		TextureRegion nodsTexs[][] = TextureRegion.split(mainTexture, mainTexture.getWidth()/8, mainTexture.getHeight()/8);
-
 		/* loading texture for restart button */
-		mainTexturesMap.put("restartUp", nodsTexs[2][5]);
-		mainTexturesMap.put("restartDown", nodsTexs[2][6]);
+	
+		mainTexturesMap.put("restartUp", mainAtlas.findRegion("button_restart1"));
+		mainTexturesMap.put("restartDown", mainAtlas.findRegion("button_restart2"));
 		
 		
 		/* loading background */
-		
-		//TextureRegion backTex[][] = TextureRegion.split(mainTexture, mainTexture.getWidth()/4, mainTexture.getHeight()/4);
-		TextureRegion backTex = new TextureRegion(mainTexture, 0, 0, 255, 253);
-		//mainTexturesMap.put("background",backTex[0][0]);
-		mainTexturesMap.put("background",backTex);
+		mainTexturesMap.put("background",mainAtlas.findRegion("background"));
 		
 		/* loading field edges */
 		TextureRegion fieldTex[][] = TextureRegion.split(mainTexture, mainTexture.getWidth()/4, mainTexture.getHeight()/4);
@@ -153,11 +148,11 @@ public class GameScreen implements Screen, InputProcessor
 		
 		/*game over text */
 		// "game"
-		TextureRegion gameWordTex = new TextureRegion(mainTexture, 0, 930, 256, 92);
-		mainTexturesMap.put("game",gameWordTex);
+//		TextureRegion gameWordTex = new TextureRegion(mainTexture, 0, 930, 256, 92);
+		mainTexturesMap.put("game",mainAtlas.findRegion("game"));
 		// "over"
-		TextureRegion overWordTex = new TextureRegion(mainTexture, 257, 930, 246, 92);
-		mainTexturesMap.put("over",overWordTex);
+//		TextureRegion overWordTex = new TextureRegion(mainTexture, 257, 930, 246, 92);
+		mainTexturesMap.put("over",mainAtlas.findRegion("over"));
 		
 
 	}

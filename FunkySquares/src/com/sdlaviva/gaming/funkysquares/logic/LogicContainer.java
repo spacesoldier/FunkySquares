@@ -4,10 +4,12 @@ import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.math.*;
 import com.badlogic.gdx.scenes.scene2d.*;
 import com.sdlaviva.gaming.funkysquares.model.*;
-//import java.util.*;
+
+import java.util.Date;
 import java.util.Map;
 import java.util.ArrayList;
-//import com.badlogic.gdx.math.Rectangle;
+import java.lang.Math;
+import java.util.Random;
 
 public class LogicContainer extends Group
 {
@@ -24,6 +26,22 @@ public class LogicContainer extends Group
 	Map<String, TextureRegion> textureAtlas;
 
 	private static final int FIELD_SIZE = 6;
+	
+	public static enum GameMode{
+		EASY,
+		MEDIUM,
+		HARD
+	}
+	
+	private GameMode gameMode;
+
+	public GameMode getGameMode() {
+		return gameMode;
+	}
+
+	public void setGameMode(GameMode gameMode) {
+		this.gameMode = gameMode;
+	}
 
 	static int getSize() {
 		return FIELD_SIZE;
@@ -39,7 +57,7 @@ public class LogicContainer extends Group
 	private boolean fieldClear;
 	private boolean gameEnded;
 	
-	public LogicContainer(GameField field, Map<String, TextureRegion> textureAtlas, float centerX, float centerY){
+	public LogicContainer(GameField field, Map<String, TextureRegion> textureAtlas, float centerX, float centerY, GameMode mode){
 
 		this.mainField = field;
 		this.textureAtlas = textureAtlas;
@@ -52,6 +70,8 @@ public class LogicContainer extends Group
 		setY((centerY-FIELD_SIZE/2)*ppuY);
 		setWidth((FIELD_SIZE)*ppuX);
 		setHeight((FIELD_SIZE)*ppuY);
+		
+		this.gameMode = mode;
 		
 		fieldClear = true;
 		gameEnded = false;
@@ -114,6 +134,7 @@ public class LogicContainer extends Group
 			
 		}
 		
+		normalizeVisible();
 		
 		//Then add nods to the scene
 		for (int i=0; i<FIELD_SIZE+2; i++){
@@ -123,16 +144,135 @@ public class LogicContainer extends Group
 			}
 		}
 		
-		
 		//hidden rows and columns
 		addNewNods();
+		
 	}
 
 	private void fillEmptyField() {
 		for (int i=0; i<FIELD_SIZE+2; i++)
 			for (int j=0; j<FIELD_SIZE+2; j++) {
-				logicField[i][j] = new NodRec();
+				if (logicField[i][j] != null) logicField[i][j].clear();
+				else logicField[i][j] = new NodRec();
 			}
+	}
+	
+	private void normalizeVisible(){
+
+		// collect all visible nods into one array
+		ArrayList<NodRec> visibleNods = collectVisibleNods();
+		switch(gameMode){
+			case EASY:
+				break;
+			case MEDIUM:
+				// change colors according to the rule
+				for (int i = 0; i<visibleNods.size(); i++){
+					if (i>1){
+						if (visibleNods.get(i).nod.getNodeColor() == visibleNods.get(i-1).nod.getNodeColor() &&
+							visibleNods.get(i).nod.getNodeColor() == visibleNods.get(i-2).nod.getNodeColor()){
+							while (visibleNods.get(i).nod.getNodeColor() == visibleNods.get(i-1).nod.getNodeColor())
+								visibleNods.get(i).nod.setNodeColor(CubeNod.ColorDef.getRandom());
+						}
+							
+					}
+				}
+				break;
+			case HARD:
+				// change colors according to the rule
+				for (int i = 0; i<visibleNods.size(); i++){
+					if (i>0){
+						if (visibleNods.get(i).nod.getNodeColor() == visibleNods.get(i-1).nod.getNodeColor()){
+							while (visibleNods.get(i).nod.getNodeColor() == visibleNods.get(i-1).nod.getNodeColor())
+								//visibleNods.get(i).nod.setNodeColor(Math.abs(Math.round((int)(randomColor.nextDouble()*(CubeNod.ColorDef.values().length-1)))));
+								visibleNods.get(i).nod.setNodeColor(CubeNod.ColorDef.getRandom());
+						}
+							
+					}
+				}
+	
+				break;
+		}
+	}
+
+	private ArrayList<NodRec> collectVisibleNods() {
+		ArrayList<NodRec> visibleNods = new ArrayList<NodRec>();
+		
+		for (int i=1; i<FIELD_SIZE-1; i++){
+			visibleNods.add(logicField[1][i]);
+		}
+		for (int i=1; i<FIELD_SIZE-1; i++){
+			visibleNods.add(logicField[i][FIELD_SIZE]);
+		}
+		for (int i=FIELD_SIZE; i>1; i--){
+			visibleNods.add(logicField[FIELD_SIZE][i]);
+		}
+		for (int i=FIELD_SIZE; i>1; i--){
+			visibleNods.add(logicField[i][1]);
+		}
+		return visibleNods;
+	}
+	
+	private ArrayList<ArrayList<NodRec>> collectHiddenNods(){
+		ArrayList<ArrayList<NodRec>> result = new ArrayList<ArrayList<NodRec>>();
+		
+		ArrayList<NodRec> tmp = new ArrayList<NodRec>();
+		for (int j = 1; j<FIELD_SIZE+1; j++){
+			tmp.add(logicField[0][j]);
+		}
+		result.add(tmp);
+		
+		for (int j = 1; j<FIELD_SIZE+1; j++){
+			tmp.add(logicField[j][FIELD_SIZE+1]);
+		}
+		result.add(tmp);
+		
+		for (int j = 1; j<FIELD_SIZE+1; j++){
+			tmp.add(logicField[FIELD_SIZE+1][j]);
+		}
+		result.add(tmp);
+		
+		for (int j = 1; j<FIELD_SIZE+1; j++){
+			tmp.add(logicField[j][0]);
+		}
+		result.add(tmp);
+		
+		return result;
+	}
+	
+	private void normalizeHidden(){
+		ArrayList<ArrayList<NodRec>> hiddenNods = collectHiddenNods();
+		switch(gameMode){
+			case EASY:
+				break;
+			case MEDIUM:
+				for (int i = 0; i<hiddenNods.size(); i++){
+					for (int j = 0; j<hiddenNods.get(i).size(); j++){
+						if (j>1){
+							if (hiddenNods.get(i).get(j).nod.getNodeColor() == hiddenNods.get(i).get(j-1).nod.getNodeColor() &&
+									hiddenNods.get(i).get(j).nod.getNodeColor() == hiddenNods.get(i).get(j-2).nod.getNodeColor()){
+								while (hiddenNods.get(i).get(j).nod.getNodeColor() == hiddenNods.get(i).get(j-1).nod.getNodeColor())
+									hiddenNods.get(i).get(j).nod.setNodeColor(CubeNod.ColorDef.getRandom());
+							}
+								
+						}	
+					}
+				}
+					
+				break;
+			case HARD:
+				for (int i = 0; i<hiddenNods.size(); i++){
+					for (int j = 0; j<hiddenNods.get(i).size(); j++){
+						if (j>1){
+							if (hiddenNods.get(i).get(j).nod.getNodeColor() == hiddenNods.get(i).get(j-1).nod.getNodeColor()){
+								while (hiddenNods.get(i).get(j).nod.getNodeColor() == hiddenNods.get(i).get(j-1).nod.getNodeColor())
+									hiddenNods.get(i).get(j).nod.setNodeColor(CubeNod.ColorDef.getRandom());
+							}
+								
+						}	
+					}
+				}
+				break;
+	}
 	}
 	
 	
@@ -194,6 +334,8 @@ public class LogicContainer extends Group
 				if ((!rec.isEmpty) && (this.hasActor(rec.nod) == false)) this.addActor(rec.nod);
 			}
 		}
+		
+		normalizeHidden();
 		
 	}	
 	

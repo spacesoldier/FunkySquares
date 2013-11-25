@@ -106,14 +106,14 @@ public class GameField extends Stage
 
 		//debugLabel = new Label("Button coordinates:",new Label.LabelStyle(new BitmapFont(), new Color(1,1,1,1)));
 		
-		allNods = new LogicContainer(this,textureAtlas, GameField.CAMERA_WIDTH/2, GameField.CAMERA_HEIGHT-5);
+		allNods = new LogicContainer(this,textureAtlas, GameField.CAMERA_WIDTH/2, GameField.CAMERA_HEIGHT-5, LogicContainer.GameMode.HARD );
 		this.addActor(allNods);
 		this.addActor(new FieldFrame(new Vector2(CAMERA_WIDTH/2,GameField.CAMERA_HEIGHT-5),ppuX,ppuY,textureAtlas));
 		
 
 		//this.addActor(debugLabel);
 		//debugLabel.setPosition(0,ppuY*(CAMERA_HEIGHT-4));
-		
+
 		// CREATING SCORE COUNTER
 		Score = new ScoreCounter(this,textureAtlas,0);
 		

@@ -63,9 +63,6 @@ public class CubeNod extends Actor
 		
 		private static Random randomColor = new Random(new Date().getTime());
 
-		//private static SecureRandom randomColor = new SecureRandom();
-		
-		
 		public static ColorDef getRandom(){
 			
 
@@ -79,7 +76,6 @@ public class CubeNod extends Actor
 		
 	}
 	
-//	private int node_id;
 	private ColorDef nodeColor;
 	private State currState;
 	private float alpha;
@@ -89,13 +85,45 @@ public class CubeNod extends Actor
 		return colorCode;
 	}
 	
+//	public void setNodeColor(int newColor){
+	public void setNodeColor(ColorDef newColor){
+		switch (newColor){
+			case BLUE:
+				nodeColor = newColor;
+				//nodeColor = ColorDef.BLUE;
+				colorCode = 1;
+				break;
+			case GREEN:
+				nodeColor = newColor;
+//				nodeColor = ColorDef.GREEN;
+				colorCode = 2;
+				break;
+			case GREY:
+				nodeColor = newColor;
+//				nodeColor = ColorDef.GREY;
+				colorCode = 3;
+				break;
+			case PINK:
+				nodeColor = newColor;
+//				nodeColor = ColorDef.PINK;
+				colorCode = 4;
+				break;
+			case YELLOW:
+				nodeColor = newColor;
+//				nodeColor = ColorDef.YELLOW;
+				colorCode = 5;
+				break;
+			case BOMB:
+				break;
+			default:
+				break;
+		}
+	}
+	
 	private Vector2 gamePos;
 
 	private float ppuX; 
 	private float ppuY;
-//	private float cX;
-//	private float cY;
-//	private float fSize;
 	
 	private Vector2 position;
 	private Vector2 newPosition;
@@ -119,21 +147,38 @@ public class CubeNod extends Actor
 		this.ppuX = ppuX;
 		this.ppuY = ppuY;
 		this.textureAtlas = textureAtlas;
-//		this.cX = centerX;
-//		this.cY= centerY;
-//		this.fSize = FIELD_SIZE;
 		gamePos = new Vector2(gamePosition.x, gamePosition.y);
 		this.position = new Vector2(centerX-FIELD_SIZE/2-1+gamePos.x,centerY-FIELD_SIZE/2-1+gamePos.y);
 		this.newPosition = new Vector2(this.position.x,this.position.y);
 		this.oldPosition = new Vector2(this.position.x,this.position.y);
 		
-//		this.node_id = id;
 		this.nodeColor = nodeColor;
 		this.currState = State.IN_GAME;
 		this.alpha = 1.0f;
 		this.oldAlpha = 1.0f;
 		
 		colorCode = -1;
+		switch (nodeColor){
+			case BLUE:
+				colorCode = 1;
+				break;
+			case GREEN:
+				colorCode = 2;
+				break;
+			case GREY:
+				colorCode = 3;
+				break;
+			case PINK:
+				colorCode = 4;
+				break;
+			case YELLOW:
+				colorCode = 5;
+				break;
+			case BOMB:
+				break;
+			default:
+				break;
+	}
 		
 		steady = true;
 	}
