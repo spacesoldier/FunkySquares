@@ -1,20 +1,19 @@
 package com.sdlaviva.gaming.funkysquares.screens;
 
-import java.util.Map;
 import java.util.HashMap;
+import java.util.Map;
 
+import com.badlogic.gdx.Application.ApplicationType;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL10;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.sdlaviva.gaming.funkysquares.model.*;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.InputProcessor;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Application.ApplicationType;
+import com.sdlaviva.gaming.funkysquares.model.GameField;
 //import android.util.Log;
 
 public class GameScreen implements Screen, InputProcessor
@@ -106,14 +105,19 @@ public class GameScreen implements Screen, InputProcessor
 		mainTexturesMap.put("pinkNod",mainAtlas.findRegion("pink"));
 		mainTexturesMap.put("yellowNod",mainAtlas.findRegion("orange"));
 		
+		TextureRegion nodsTexs[][] = TextureRegion.split(mainTexture, mainTexture.getWidth()/8, mainTexture.getHeight()/8);
+
 		/* loading texture for restart button */
-	
-		mainTexturesMap.put("restartUp", mainAtlas.findRegion("button_restart1"));
-		mainTexturesMap.put("restartDown", mainAtlas.findRegion("button_restart2"));
+		mainTexturesMap.put("restartUp", nodsTexs[2][5]);
+		mainTexturesMap.put("restartDown", nodsTexs[2][6]);
 		
 		
 		/* loading background */
-		mainTexturesMap.put("background",mainAtlas.findRegion("background"));
+		
+		//TextureRegion backTex[][] = TextureRegion.split(mainTexture, mainTexture.getWidth()/4, mainTexture.getHeight()/4);
+		TextureRegion backTex = new TextureRegion(mainTexture, 0, 0, 255, 253);
+		//mainTexturesMap.put("background",backTex[0][0]);
+		mainTexturesMap.put("background",backTex);
 		
 		/* loading field edges */
 		TextureRegion fieldTex[][] = TextureRegion.split(mainTexture, mainTexture.getWidth()/4, mainTexture.getHeight()/4);
@@ -148,11 +152,11 @@ public class GameScreen implements Screen, InputProcessor
 		
 		/*game over text */
 		// "game"
-//		TextureRegion gameWordTex = new TextureRegion(mainTexture, 0, 930, 256, 92);
-		mainTexturesMap.put("game",mainAtlas.findRegion("game"));
+		TextureRegion gameWordTex = new TextureRegion(mainTexture, 0, 930, 256, 92);
+		mainTexturesMap.put("game",gameWordTex);
 		// "over"
-//		TextureRegion overWordTex = new TextureRegion(mainTexture, 257, 930, 246, 92);
-		mainTexturesMap.put("over",mainAtlas.findRegion("over"));
+		TextureRegion overWordTex = new TextureRegion(mainTexture, 257, 930, 246, 92);
+		mainTexturesMap.put("over",overWordTex);
 		
 
 	}

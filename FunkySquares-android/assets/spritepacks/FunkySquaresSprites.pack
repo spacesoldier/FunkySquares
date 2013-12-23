@@ -19,14 +19,14 @@ control_down_unpressed
   index: -1
 control_left_pressed
   rotate: false
-  xy: 1, 1
+  xy: 333, 665
   size: 330, 330
   orig: 330, 330
   offset: 0, 0
   index: -1
 control_left_unpressed
   rotate: false
-  xy: 333, 665
+  xy: 1, 1
   size: 330, 330
   orig: 330, 330
   offset: 0, 0
@@ -40,42 +40,49 @@ control_right_pressed
   index: -1
 control_right_unpressed
   rotate: false
-  xy: 333, 1
+  xy: 665, 665
   size: 330, 330
   orig: 330, 330
   offset: 0, 0
   index: -1
 control_up_pressed
   rotate: false
-  xy: 665, 670
+  xy: 333, 6
   size: 330, 325
   orig: 330, 325
   offset: 0, 0
   index: -1
 control_up_unpressed
   rotate: false
-  xy: 665, 343
+  xy: 665, 338
   size: 330, 325
   orig: 330, 325
   offset: 0, 0
   index: -1
-game
-  rotate: false
-  xy: 665, 213
-  size: 271, 128
-  orig: 271, 128
-  offset: 0, 0
-  index: -1
 blue
   rotate: false
-  xy: 665, 76
+  xy: 665, 201
   size: 136, 135
   orig: 136, 135
   offset: 0, 0
   index: -1
 green
   rotate: false
-  xy: 803, 76
+  xy: 665, 64
+  size: 136, 135
+  orig: 136, 135
+  offset: 0, 0
+  index: -1
+orange
+  rotate: false
+  xy: 803, 201
+  size: 136, 135
+  orig: 136, 135
+  offset: 0, 0
+  index: -1
+pink
+  rotate: false
+  xy: 803, 64
   size: 136, 135
   orig: 136, 135
   offset: 0, 0
@@ -85,65 +92,23 @@ FunkySquaresSprites2.png
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
-button_restart1
-  rotate: false
-  xy: 1, 138
-  size: 256, 256
-  orig: 256, 256
-  offset: 0, 0
-  index: -1
-button_restart2
-  rotate: false
-  xy: 259, 138
-  size: 256, 256
-  orig: 256, 256
-  offset: 0, 0
-  index: -1
-background
-  rotate: false
-  xy: 517, 139
-  size: 256, 255
-  orig: 256, 255
-  offset: 0, 0
-  index: -1
-over
-  rotate: false
-  xy: 1, 8
-  size: 238, 128
-  orig: 238, 128
-  offset: 0, 0
-  index: -1
-orange
-  rotate: false
-  xy: 775, 259
-  size: 136, 135
-  orig: 136, 135
-  offset: 0, 0
-  index: -1
-pink
-  rotate: false
-  xy: 241, 1
-  size: 136, 135
-  orig: 136, 135
-  offset: 0, 0
-  index: -1
 red
   rotate: false
-  xy: 379, 1
+  xy: 1, 1
   size: 136, 135
   orig: 136, 135
   offset: 0, 0
   index: -1
 btn9patch_pressed
   rotate: false
-  xy: 517, 8
+  xy: 139, 7
   size: 132, 129
   orig: 132, 129
   offset: 0, 0
   index: -1
 btn9patch_unpressed
   rotate: false
-  xy: 651, 8
+  xy: 273, 7
   size: 132, 129
   orig: 132, 129
   offset: 0, 0

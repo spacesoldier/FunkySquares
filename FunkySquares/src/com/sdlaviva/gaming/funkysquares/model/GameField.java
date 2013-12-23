@@ -20,6 +20,7 @@ public class GameField extends Stage
 {
 	public float ppuX;
 	public float ppuY;
+	boolean resize_for_16to9;
 	
 	public Actor selectedActor = null;
 	
@@ -75,12 +76,9 @@ public class GameField extends Stage
 		if (allNods != null) allNods.reset();
 		Score.setValue(0);
 
-		///TODO REMOVE THESE FUCKIN GAMEOVER WIDGETS
-		
-		removeGameOverCase();
+		// REMOVE GAMEOVER WIDGETS
 
-		//gameOverWidget.hide();
-		
+		removeGameOverCase();
 	}
 
 	private void removeGameOverCase() {
@@ -100,20 +98,32 @@ public class GameField extends Stage
 		ppuX = getWidth()/CAMERA_WIDTH;
 		ppuY = getHeight()/CAMERA_HEIGHT;
 		
+		float init_ratio = CAMERA_HEIGHT/CAMERA_WIDTH;
+		
+		// adapting for display ratio 16:9 and others
+		float ratio = getHeight()/getWidth();
+		float corrY = init_ratio/ratio;
+		if ((ratio > 1.6) && (ratio <= (16f/9f))){
+			ppuY *= corrY;
+			resize_for_16to9 = true;
+		} else {
+			resize_for_16to9 = false;
+		}
+		
 		for (int i=0; i<(int)(GameField.CAMERA_WIDTH/Background.SIZE); i++)
 			for (int j=0; j<(int)(GameField.CAMERA_HEIGHT/Background.SIZE); j++)
-				this.addActor(new Background(new Vector2(i,j),ppuX,ppuY,textureAtlas));
+				this.addActor(new Background(new Vector2(i,j),ppuX,ppuY,textureAtlas, resize_for_16to9, corrY));
 
 		//debugLabel = new Label("Button coordinates:",new Label.LabelStyle(new BitmapFont(), new Color(1,1,1,1)));
 		
-		allNods = new LogicContainer(this,textureAtlas, GameField.CAMERA_WIDTH/2, GameField.CAMERA_HEIGHT-5, LogicContainer.GameMode.HARD );
+		allNods = new LogicContainer(this,textureAtlas, GameField.CAMERA_WIDTH/2, GameField.CAMERA_HEIGHT-5, LogicContainer.GameMode.MEDIUM );
 		this.addActor(allNods);
 		this.addActor(new FieldFrame(new Vector2(CAMERA_WIDTH/2,GameField.CAMERA_HEIGHT-5),ppuX,ppuY,textureAtlas));
 		
 
 		//this.addActor(debugLabel);
 		//debugLabel.setPosition(0,ppuY*(CAMERA_HEIGHT-4));
-
+		
 		// CREATING SCORE COUNTER
 		Score = new ScoreCounter(this,textureAtlas,0);
 		

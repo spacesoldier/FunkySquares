@@ -22,12 +22,18 @@ public class Background extends Actor
 
 	private float ppuX;
 
-	public Background(Vector2 position, float ppuX, float ppuY, Map<String, TextureRegion> textureAtlas) {
+	public Background(Vector2 position, float ppuX, float ppuY, Map<String, TextureRegion> textureAtlas, boolean resize_16to9, float corrY) {
 		this.position = position;
 		this.bounds.width = SIZE;
 		this.bounds.height = SIZE;
 		this.ppuX = ppuX;
-		this.ppuY = ppuY;
+		if (resize_16to9){
+			this.ppuY = ppuY/corrY;
+		}
+		else {
+			this.ppuY = ppuY;
+		}
+		
 		this.textureAtlas = textureAtlas;
 		
 /*		addListener(new InputListener (){

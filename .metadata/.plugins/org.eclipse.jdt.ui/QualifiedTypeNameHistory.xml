@@ -5,5 +5,9 @@
 <fullyQualifiedTypeName name="com.badlogic.gdx.math.Vector2"/>
 <fullyQualifiedTypeName name="com.sdlaviva.gaming.funkysquares.controls.GameOverCase"/>
 <fullyQualifiedTypeName name="com.sdlaviva.gaming.funkysquares.controls.RestartButton"/>
+<fullyQualifiedTypeName name="com.sdlaviva.gaming.funkysquares.logic.LogicContainer.GameMode"/>
+<fullyQualifiedTypeName name="com.sdlaviva.gaming.funkysquares.model.CubeNod"/>
+<fullyQualifiedTypeName name="com.sdlaviva.gaming.funkysquares.model.CubeNod.ColorDef"/>
 <fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="com.sdlaviva.gaming.funkysquares.logic.NodRec"/>
 </qualifiedTypeNameHistroy>

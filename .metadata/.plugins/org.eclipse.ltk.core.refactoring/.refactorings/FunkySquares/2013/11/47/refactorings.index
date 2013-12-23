@@ -1,1 +1,3 @@
 1384770589238	Extract method 'removeGameOverCase'
+1385040272518	Extract method 'collectVisibleNods'
+1385040343295	Change method 'collectVisibleNods'

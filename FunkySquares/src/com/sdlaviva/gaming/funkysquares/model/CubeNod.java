@@ -64,13 +64,10 @@ public class CubeNod extends Actor
 		private static Random randomColor = new Random(new Date().getTime());
 
 		public static ColorDef getRandom(){
-			
 
-			
 //			int result = Math.round(randomColor.nextInt((values().length-1)*1000)/1000);
 			int result = Math.abs(Math.round((int)(randomColor.nextDouble()*(values().length-1))));//*(values().length-1)/10);
-			
-						
+
 			return values()[result];
 		}
 		

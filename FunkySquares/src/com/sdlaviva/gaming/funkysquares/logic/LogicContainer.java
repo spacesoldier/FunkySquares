@@ -134,7 +134,6 @@ public class LogicContainer extends Group
 			
 		}
 		
-		normalizeVisible();
 		
 		//Then add nods to the scene
 		for (int i=0; i<FIELD_SIZE+2; i++){
@@ -144,9 +143,12 @@ public class LogicContainer extends Group
 			}
 		}
 		
+		
 		//hidden rows and columns
 		addNewNods();
 		
+		normalizeVisible();
+//		normalizeHidden();
 	}
 
 	private void fillEmptyField() {
@@ -158,11 +160,12 @@ public class LogicContainer extends Group
 	}
 	
 	private void normalizeVisible(){
-
+		Random randomColor = new Random(new Date().getTime());
 		// collect all visible nods into one array
 		ArrayList<NodRec> visibleNods = collectVisibleNods();
 		switch(gameMode){
 			case EASY:
+				// do nothing
 				break;
 			case MEDIUM:
 				// change colors according to the rule
@@ -171,6 +174,7 @@ public class LogicContainer extends Group
 						if (visibleNods.get(i).nod.getNodeColor() == visibleNods.get(i-1).nod.getNodeColor() &&
 							visibleNods.get(i).nod.getNodeColor() == visibleNods.get(i-2).nod.getNodeColor()){
 							while (visibleNods.get(i).nod.getNodeColor() == visibleNods.get(i-1).nod.getNodeColor())
+//								visibleNods.get(i).nod.setNodeColor(Math.abs(Math.round((int)(randomColor.nextDouble()*(CubeNod.ColorDef.values().length-1)))));
 								visibleNods.get(i).nod.setNodeColor(CubeNod.ColorDef.getRandom());
 						}
 							
@@ -197,82 +201,76 @@ public class LogicContainer extends Group
 	private ArrayList<NodRec> collectVisibleNods() {
 		ArrayList<NodRec> visibleNods = new ArrayList<NodRec>();
 		
-		for (int i=1; i<FIELD_SIZE-1; i++){
+		for (int i=1; i<FIELD_SIZE+1; i++){
 			visibleNods.add(logicField[1][i]);
 		}
-		for (int i=1; i<FIELD_SIZE-1; i++){
+		for (int i=2; i<FIELD_SIZE-1; i++){
 			visibleNods.add(logicField[i][FIELD_SIZE]);
 		}
-		for (int i=FIELD_SIZE; i>1; i--){
+		for (int i=FIELD_SIZE; i>0; i--){
 			visibleNods.add(logicField[FIELD_SIZE][i]);
 		}
-		for (int i=FIELD_SIZE; i>1; i--){
+		for (int i=FIELD_SIZE-1; i>1; i--){
 			visibleNods.add(logicField[i][1]);
 		}
 		return visibleNods;
 	}
 	
 	private ArrayList<ArrayList<NodRec>> collectHiddenNods(){
-		ArrayList<ArrayList<NodRec>> result = new ArrayList<ArrayList<NodRec>>();
+		ArrayList<ArrayList<NodRec>> hiddenNods = new ArrayList<ArrayList<NodRec>>();
+		ArrayList<NodRec> leftHiddenCol = new ArrayList<NodRec>();
+		ArrayList<NodRec> upHiddenRow = new ArrayList<NodRec>();
+		ArrayList<NodRec> rightHiddenCol = new ArrayList<NodRec>();
+		ArrayList<NodRec> downHiddenRow = new ArrayList<NodRec>();
 		
-		ArrayList<NodRec> tmp = new ArrayList<NodRec>();
-		for (int j = 1; j<FIELD_SIZE+1; j++){
-			tmp.add(logicField[0][j]);
+		for (int i=1; i<FIELD_SIZE+1; i++){
+			leftHiddenCol.add(logicField[0][i]);
+			upHiddenRow.add(logicField[i][FIELD_SIZE+1]);
+			rightHiddenCol.add(logicField[FIELD_SIZE+1][i]);
+			downHiddenRow.add(logicField[i][0]);
 		}
-		result.add(tmp);
+		hiddenNods.add(leftHiddenCol);
+		hiddenNods.add(upHiddenRow);
+		hiddenNods.add(rightHiddenCol);
+		hiddenNods.add(downHiddenRow);
 		
-		for (int j = 1; j<FIELD_SIZE+1; j++){
-			tmp.add(logicField[j][FIELD_SIZE+1]);
-		}
-		result.add(tmp);
-		
-		for (int j = 1; j<FIELD_SIZE+1; j++){
-			tmp.add(logicField[FIELD_SIZE+1][j]);
-		}
-		result.add(tmp);
-		
-		for (int j = 1; j<FIELD_SIZE+1; j++){
-			tmp.add(logicField[j][0]);
-		}
-		result.add(tmp);
-		
-		return result;
+		return hiddenNods;
 	}
 	
 	private void normalizeHidden(){
 		ArrayList<ArrayList<NodRec>> hiddenNods = collectHiddenNods();
 		switch(gameMode){
 			case EASY:
+				// do nothing
 				break;
 			case MEDIUM:
-				for (int i = 0; i<hiddenNods.size(); i++){
-					for (int j = 0; j<hiddenNods.get(i).size(); j++){
-						if (j>1){
-							if (hiddenNods.get(i).get(j).nod.getNodeColor() == hiddenNods.get(i).get(j-1).nod.getNodeColor() &&
-									hiddenNods.get(i).get(j).nod.getNodeColor() == hiddenNods.get(i).get(j-2).nod.getNodeColor()){
-								while (hiddenNods.get(i).get(j).nod.getNodeColor() == hiddenNods.get(i).get(j-1).nod.getNodeColor())
-									hiddenNods.get(i).get(j).nod.setNodeColor(CubeNod.ColorDef.getRandom());
+				for (ArrayList<NodRec> arr :hiddenNods){
+					for (int i=0; i<arr.size(); i++){
+						if (i>1){
+							if (arr.get(i).nod.getNodeColor() == arr.get(i-1).nod.getNodeColor() &&
+									arr.get(i).nod.getNodeColor() == arr.get(i-2).nod.getNodeColor()){
+								while (arr.get(i).nod.getNodeColor() == arr.get(i-1).nod.getNodeColor())
+									arr.get(i).nod.setNodeColor(CubeNod.ColorDef.getRandom());
 							}
 								
-						}	
+						}
 					}
 				}
-					
+			
 				break;
 			case HARD:
-				for (int i = 0; i<hiddenNods.size(); i++){
-					for (int j = 0; j<hiddenNods.get(i).size(); j++){
-						if (j>1){
-							if (hiddenNods.get(i).get(j).nod.getNodeColor() == hiddenNods.get(i).get(j-1).nod.getNodeColor()){
-								while (hiddenNods.get(i).get(j).nod.getNodeColor() == hiddenNods.get(i).get(j-1).nod.getNodeColor())
-									hiddenNods.get(i).get(j).nod.setNodeColor(CubeNod.ColorDef.getRandom());
+				for (ArrayList<NodRec> arr :hiddenNods){
+					for (int i = 0; i<arr.size(); i++){
+						if (i>0){
+							if (arr.get(i).nod.getNodeColor() == arr.get(i-1).nod.getNodeColor()){
+								while (arr.get(i).nod.getNodeColor() == arr.get(i-1).nod.getNodeColor())
+									arr.get(i).nod.setNodeColor(CubeNod.ColorDef.getRandom());
 							}
-								
-						}	
+						}
 					}
 				}
 				break;
-	}
+		}
 	}
 	
 	
@@ -326,16 +324,40 @@ public class LogicContainer extends Group
 			
 		}
 		
+		normalizeHidden();
 		
+		// TODO: correct the addition of the hidden nods th the group
 		//add nods to the scene
-		for (int i=0; i<FIELD_SIZE+2; i++){
-			for (int j=0; j<FIELD_SIZE+2; j++){
-				NodRec rec = logicField[i][j];
-				if ((!rec.isEmpty) && (this.hasActor(rec.nod) == false)) this.addActor(rec.nod);
+		
+		for (int i=1; i<FIELD_SIZE+1; i++){
+			NodRec rec = logicField[0][i];
+			if ((!rec.isEmpty) && (this.hasActor(rec.nod) == false)) {
+				this.addActor(rec.nod);
+			}
+			rec = logicField[i][FIELD_SIZE+1];
+			if ((!rec.isEmpty) && (this.hasActor(rec.nod) == false)) {
+				this.addActor(rec.nod);
+			}
+			rec = logicField[FIELD_SIZE+1][i];
+			if ((!rec.isEmpty) && (this.hasActor(rec.nod) == false)) {
+				this.addActor(rec.nod);
+			}
+			rec = logicField[i][0];
+			if ((!rec.isEmpty) && (this.hasActor(rec.nod) == false)) {
+				this.addActor(rec.nod);
 			}
 		}
 		
-		normalizeHidden();
+		/*
+		for (int i=0; i<FIELD_SIZE+2; i++){
+			for (int j=0; j<FIELD_SIZE+2; j++){
+				NodRec rec = logicField[i][j];
+				if ((!rec.isEmpty) && (this.hasActor(rec.nod) == false)) {
+					this.addActor(rec.nod);
+				}
+			}
+		}
+		*/
 		
 	}	
 	
