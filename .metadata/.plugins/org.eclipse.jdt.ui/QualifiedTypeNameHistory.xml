@@ -10,4 +10,5 @@
 <fullyQualifiedTypeName name="com.sdlaviva.gaming.funkysquares.model.CubeNod.ColorDef"/>
 <fullyQualifiedTypeName name="java.util.ArrayList"/>
 <fullyQualifiedTypeName name="com.sdlaviva.gaming.funkysquares.logic.NodRec"/>
+<fullyQualifiedTypeName name="com.badlogic.gdx.files.FileHandle"/>
 </qualifiedTypeNameHistroy>

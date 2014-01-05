@@ -7,12 +7,14 @@ import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.sdlaviva.gaming.funkysquares.model.GameField;
 //import android.util.Log;
 
@@ -22,7 +24,6 @@ public class GameScreen implements Screen, InputProcessor
 	public OrthographicCamera cam;
 	public GameField mainField;
 
-	Texture mainTexture;
 	TextureAtlas mainAtlas;
 	public Map<String, TextureRegion> mainTexturesMap = new HashMap<String, TextureRegion>();
 	
@@ -30,6 +31,7 @@ public class GameScreen implements Screen, InputProcessor
 	public int height;
 	
 	SpriteBatch spriteBatch;
+	public static final String FONT_CHARACTERS = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789][_!$%#@*&.;,";
 	
 	@Override
 	public void show() {
@@ -87,15 +89,21 @@ public class GameScreen implements Screen, InputProcessor
 		Gdx.input.setInputProcessor(null);
 	}
 	
+	public void loadSprites(){
+		loadTextures();
+	}
+	
 	private void loadTextures(){
 		
+		//generating font
+		FileHandle fontFile = Gdx.files.internal("fonts/LilitaOne-Regular.ttf");
+        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(fontFile);
+        int scoreSize = (int) Math.round(Gdx.graphics.getHeight()/GameField.CAMERA_HEIGHT);
+        generator.generateFont(scoreSize, FONT_CHARACTERS, false);
+        generator.dispose();
+		 
 		//TextureAtlas atlas;
 		mainAtlas = new TextureAtlas(Gdx.files.internal("spritepacks/FunkySquaresSprites.pack"));
-		//AtlasRegion region = atlas.findRegion("imagename");
-		//Sprite sprite = atlas.createSprite("otherimagename");
-		//NinePatch patch = atlas.createPatch("patchimagename");
-
-		mainTexture = new Texture(Gdx.files.internal("images/funkysquares_atlas.png"));
 		
 		/* color bricks loading */
 		
@@ -105,24 +113,19 @@ public class GameScreen implements Screen, InputProcessor
 		mainTexturesMap.put("pinkNod",mainAtlas.findRegion("pink"));
 		mainTexturesMap.put("yellowNod",mainAtlas.findRegion("orange"));
 		
-		TextureRegion nodsTexs[][] = TextureRegion.split(mainTexture, mainTexture.getWidth()/8, mainTexture.getHeight()/8);
 
 		/* loading texture for restart button */
-		mainTexturesMap.put("restartUp", nodsTexs[2][5]);
-		mainTexturesMap.put("restartDown", nodsTexs[2][6]);
-		
+
+		mainTexturesMap.put("restartUp", mainAtlas.findRegion("button_restart1"));
+		mainTexturesMap.put("restartDown", mainAtlas.findRegion("button_restart2"));
 		
 		/* loading background */
 		
-		//TextureRegion backTex[][] = TextureRegion.split(mainTexture, mainTexture.getWidth()/4, mainTexture.getHeight()/4);
-		TextureRegion backTex = new TextureRegion(mainTexture, 0, 0, 255, 253);
-		//mainTexturesMap.put("background",backTex[0][0]);
-		mainTexturesMap.put("background",backTex);
+		mainTexturesMap.put("background", mainAtlas.findRegion("background"));
 		
 		/* loading field edges */
-		TextureRegion fieldTex[][] = TextureRegion.split(mainTexture, mainTexture.getWidth()/4, mainTexture.getHeight()/4);
-		mainTexturesMap.put("corner", fieldTex[0][1]);
-		mainTexturesMap.put("edge", fieldTex[0][2]);
+		mainTexturesMap.put("corner", mainAtlas.findRegion("corner"));
+		mainTexturesMap.put("edge", mainAtlas.findRegion("edge"));
 		
 		/* loading button textures */
 		mainTexturesMap.put("left_up",mainAtlas.findRegion("control_left_unpressed"));
@@ -135,28 +138,25 @@ public class GameScreen implements Screen, InputProcessor
 		mainTexturesMap.put("down_down",mainAtlas.findRegion("control_down_pressed"));
 		
 		/* loading score font textures */
-		TextureRegion scoreTex = new TextureRegion(mainTexture, 0, 448, 192, 64);
-		mainTexturesMap.put("score",scoreTex);
-		
-		TextureRegion scoreNumTex[][] = TextureRegion.split(mainTexture, mainTexture.getWidth()/32, mainTexture.getHeight()/16);
-		mainTexturesMap.put("num0",scoreNumTex[6][0]);
-		mainTexturesMap.put("num1",scoreNumTex[6][1]);
-		mainTexturesMap.put("num2",scoreNumTex[6][2]);
-		mainTexturesMap.put("num3",scoreNumTex[6][3]);
-		mainTexturesMap.put("num4",scoreNumTex[6][4]);
-		mainTexturesMap.put("num5",scoreNumTex[6][5]);
-		mainTexturesMap.put("num6",scoreNumTex[6][6]);
-		mainTexturesMap.put("num7",scoreNumTex[6][7]);
-		mainTexturesMap.put("num8",scoreNumTex[6][8]);
-		mainTexturesMap.put("num9",scoreNumTex[6][9]);
+		mainTexturesMap.put("score",mainAtlas.findRegion("score"));
+		Texture numTex = mainAtlas.findRegion("numbers").getTexture();
+		TextureRegion scoreNumTex[][] = mainAtlas.findRegion("numbers").split(numTex, numTex.getWidth()/10, numTex.getHeight());
+		mainTexturesMap.put("num0",scoreNumTex[0][0]);
+		mainTexturesMap.put("num1",scoreNumTex[0][1]);
+		mainTexturesMap.put("num2",scoreNumTex[0][2]);
+		mainTexturesMap.put("num3",scoreNumTex[0][3]);
+		mainTexturesMap.put("num4",scoreNumTex[0][4]);
+		mainTexturesMap.put("num5",scoreNumTex[0][5]);
+		mainTexturesMap.put("num6",scoreNumTex[0][6]);
+		mainTexturesMap.put("num7",scoreNumTex[0][7]);
+		mainTexturesMap.put("num8",scoreNumTex[0][8]);
+		mainTexturesMap.put("num9",scoreNumTex[0][9]);
 		
 		/*game over text */
 		// "game"
-		TextureRegion gameWordTex = new TextureRegion(mainTexture, 0, 930, 256, 92);
-		mainTexturesMap.put("game",gameWordTex);
+		mainTexturesMap.put("game",mainAtlas.findRegion("game"));
 		// "over"
-		TextureRegion overWordTex = new TextureRegion(mainTexture, 257, 930, 246, 92);
-		mainTexturesMap.put("over",overWordTex);
+		mainTexturesMap.put("over",mainAtlas.findRegion("over"));
 		
 
 	}

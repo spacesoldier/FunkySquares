@@ -5,86 +5,72 @@ filter: Nearest,Nearest
 repeat: none
 control_down_pressed
   rotate: false
-  xy: 1, 665
+  xy: 1, 681
   size: 330, 330
   orig: 330, 330
   offset: 0, 0
   index: -1
 control_down_unpressed
   rotate: false
-  xy: 1, 333
+  xy: 1, 349
   size: 330, 330
   orig: 330, 330
   offset: 0, 0
   index: -1
 control_left_pressed
   rotate: false
-  xy: 333, 665
+  xy: 333, 681
   size: 330, 330
   orig: 330, 330
   offset: 0, 0
   index: -1
 control_left_unpressed
   rotate: false
-  xy: 1, 1
+  xy: 1, 17
   size: 330, 330
   orig: 330, 330
   offset: 0, 0
   index: -1
 control_right_pressed
   rotate: false
-  xy: 333, 333
+  xy: 333, 349
   size: 330, 330
   orig: 330, 330
   offset: 0, 0
   index: -1
 control_right_unpressed
   rotate: false
-  xy: 665, 665
+  xy: 665, 681
   size: 330, 330
   orig: 330, 330
   offset: 0, 0
   index: -1
 control_up_pressed
   rotate: false
-  xy: 333, 6
+  xy: 333, 22
   size: 330, 325
   orig: 330, 325
   offset: 0, 0
   index: -1
 control_up_unpressed
   rotate: false
-  xy: 665, 338
+  xy: 665, 354
   size: 330, 325
   orig: 330, 325
   offset: 0, 0
   index: -1
-blue
+button_restart1
   rotate: false
-  xy: 665, 201
-  size: 136, 135
-  orig: 136, 135
+  xy: 665, 96
+  size: 256, 256
+  orig: 256, 256
   offset: 0, 0
   index: -1
-green
+Funky
   rotate: false
-  xy: 665, 64
-  size: 136, 135
-  orig: 136, 135
-  offset: 0, 0
-  index: -1
-orange
-  rotate: false
-  xy: 803, 201
-  size: 136, 135
-  orig: 136, 135
-  offset: 0, 0
-  index: -1
-pink
-  rotate: false
-  xy: 803, 64
-  size: 136, 135
-  orig: 136, 135
+  xy: 665, 1
+  size: 285, 93
+  orig: 285, 93
   offset: 0, 0
   index: -1
 
@@ -92,24 +78,115 @@ FunkySquaresSprites2.png
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
-red
+button_restart2
+  rotate: false
+  xy: 1, 719
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+corner
+  rotate: false
+  xy: 1, 461
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+edge
+  rotate: false
+  xy: 259, 719
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+background
+  rotate: false
+  xy: 1, 204
+  size: 256, 255
+  orig: 256, 255
+  offset: 0, 0
+  index: -1
+Squares
+  rotate: false
+  xy: 517, 882
+  size: 360, 93
+  orig: 360, 93
+  offset: 0, 0
+  index: -1
+game
+  rotate: false
+  xy: 517, 752
+  size: 271, 128
+  orig: 271, 128
+  offset: 0, 0
+  index: -1
+over
+  rotate: false
+  xy: 259, 589
+  size: 238, 128
+  orig: 238, 128
+  offset: 0, 0
+  index: -1
+numbers
+  rotate: false
+  xy: 1, 138
+  size: 320, 64
+  orig: 320, 64
+  offset: 0, 0
+  index: -1
+blue
   rotate: false
   xy: 1, 1
   size: 136, 135
   orig: 136, 135
   offset: 0, 0
   index: -1
+green
+  rotate: false
+  xy: 259, 452
+  size: 136, 135
+  orig: 136, 135
+  offset: 0, 0
+  index: -1
+orange
+  rotate: false
+  xy: 139, 1
+  size: 136, 135
+  orig: 136, 135
+  offset: 0, 0
+  index: -1
+pink
+  rotate: false
+  xy: 259, 315
+  size: 136, 135
+  orig: 136, 135
+  offset: 0, 0
+  index: -1
+red
+  rotate: false
+  xy: 397, 452
+  size: 136, 135
+  orig: 136, 135
+  offset: 0, 0
+  index: -1
 btn9patch_pressed
   rotate: false
-  xy: 139, 7
+  xy: 397, 321
   size: 132, 129
   orig: 132, 129
   offset: 0, 0
   index: -1
 btn9patch_unpressed
   rotate: false
-  xy: 273, 7
+  xy: 879, 846
   size: 132, 129
   orig: 132, 129
+  offset: 0, 0
+  index: -1
+score
+  rotate: false
+  xy: 517, 686
+  size: 192, 64
+  orig: 192, 64
   offset: 0, 0
   index: -1
