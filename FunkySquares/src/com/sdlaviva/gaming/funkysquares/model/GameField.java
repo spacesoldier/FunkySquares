@@ -212,8 +212,10 @@ public class GameField extends Stage
 	@Override
 	public Actor hit(float x, float y, boolean touchable){
 		coords.set(x,y);
-		coords = this.stageToScreenCoordinates(coords);
-		Actor actor = super.hit(coords.x,coords.y,touchable);
+		coords = this.screenToStageCoordinates(coords);
+	//	coords = this.stageToScreenCoordinates(coords);
+		Actor actor = super.hit(x,y,touchable);
+//		Actor actor = super.hit(coords.x,coords.y,touchable);
 	//	debugLabel.setText(debugLabel.getText()+"\n   Scene hit: X="+x+" Y="+y);
 		if(actor != null && actor instanceof ControlButton) {
 			selectedActor = actor;

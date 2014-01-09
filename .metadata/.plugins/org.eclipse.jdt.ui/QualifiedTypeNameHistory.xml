@@ -11,4 +11,6 @@
 <fullyQualifiedTypeName name="java.util.ArrayList"/>
 <fullyQualifiedTypeName name="com.sdlaviva.gaming.funkysquares.logic.NodRec"/>
 <fullyQualifiedTypeName name="com.badlogic.gdx.files.FileHandle"/>
+<fullyQualifiedTypeName name="com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator"/>
+<fullyQualifiedTypeName name="com.badlogic.gdx.graphics.g2d.Batch"/>
 </qualifiedTypeNameHistroy>

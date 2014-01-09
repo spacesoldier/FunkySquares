@@ -2,6 +2,7 @@ package com.sdlaviva.gaming.funkysquares.controls;
 
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import java.util.Map;
@@ -40,7 +41,7 @@ public class ControlGroup extends Group
 	}
 	
 	@Override
-	public void draw(SpriteBatch batch, float parentAlfa){
+	public void draw(Batch batch, float parentAlfa){
 		this.drawChildren(batch, parentAlfa);		
 	}
 }

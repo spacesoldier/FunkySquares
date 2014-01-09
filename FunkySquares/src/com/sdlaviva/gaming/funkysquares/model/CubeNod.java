@@ -4,10 +4,10 @@ package com.sdlaviva.gaming.funkysquares.model;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import java.util.*;
-import java.util.Random;
 import java.lang.Math;
 
 public class CubeNod extends Actor
@@ -250,7 +250,7 @@ public class CubeNod extends Actor
 	}
 	
 	@Override
-	public void draw(SpriteBatch batch, float parentAlfa){
+	public void draw(Batch batch, float parentAlfa){
 		switch (nodeColor)
 		{
 			case BLUE:

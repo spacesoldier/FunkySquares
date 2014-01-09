@@ -1,6 +1,7 @@
 package com.sdlaviva.gaming.funkysquares.controls;
 
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import java.util.Map;
@@ -118,7 +119,7 @@ public class ControlButton extends Actor
 	}
 	
 	@Override
-	public void draw(SpriteBatch batch, float parentBlending){
+	public void draw(Batch batch, float parentBlending){
 		if (this!=mainField.selectedActor) currentState = BtnState.RELEASED;
 		
 		TextureRegion textureRegion = null;
@@ -165,8 +166,8 @@ public class ControlButton extends Actor
 	}
 	
 	
-	//@Override
-	public Actor hit(float x, float y){
+	@Override
+	public Actor hit(float x, float y, boolean touchable){
 		return x>0 && x<this.getWidth() && y>0 && y< this.getHeight() ? this : null;
 	}
 }

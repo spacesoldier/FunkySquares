@@ -1,6 +1,7 @@
 package com.sdlaviva.gaming.funkysquares.controls;
 
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import java.util.Map;
@@ -73,7 +74,7 @@ public class GameOverCase extends Group {
 	}
 	
 	@Override
-	public void draw(SpriteBatch batch, float parentBlending){
+	public void draw(Batch batch, float parentBlending){
 		this.drawChildren(batch, parentBlending);
 		batch.draw(textureGame,
 				   getX(),

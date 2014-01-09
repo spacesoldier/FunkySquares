@@ -275,7 +275,7 @@ public class LogicContainer extends Group
 	
 	
 	@Override
-	public void draw(SpriteBatch batch, float parentAlfa){
+	public void draw(Batch batch, float parentAlfa){
 		this.drawChildren(batch, parentAlfa);
 		
 	}

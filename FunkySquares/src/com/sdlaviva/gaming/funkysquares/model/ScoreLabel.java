@@ -3,6 +3,8 @@ package com.sdlaviva.gaming.funkysquares.model;
 //import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import java.util.Map;
+
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
@@ -32,7 +34,7 @@ public class ScoreLabel extends Actor
 	}
 
 	@Override
-	public void draw(SpriteBatch batch, float parentAlfa){
+	public void draw(Batch batch, float parentAlfa){
 
 		batch.draw(textureAtlas.get("score"),getX(),getY(),getWidth(),getHeight());
 
